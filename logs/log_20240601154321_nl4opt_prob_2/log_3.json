@@ -1,0 +1,227 @@
+{
+    "background": "An accounting firm is trying to optimize its weekly wage bill by employing senior and junior accountants to meet their service contract requirements while obeying certain constraints on minimum numbers and ratios of accountants.",
+    "problem_type": "LP",
+    "parameters": [
+        {
+            "definition": "Weekly salary for a senior accountant",
+            "symbol": "WageSenior",
+            "value": 3000,
+            "shape": [],
+            "code": "WageSenior = data[\"WageSenior\"] # scalar parameter"
+        },
+        {
+            "definition": "Weekly salary for a junior accountant",
+            "symbol": "WageJunior",
+            "value": 1000,
+            "shape": [],
+            "code": "WageJunior = data[\"WageJunior\"] # scalar parameter"
+        },
+        {
+            "definition": "Minimum required number of accountants",
+            "symbol": "MinAccountants",
+            "value": 100,
+            "shape": [],
+            "code": "MinAccountants = data[\"MinAccountants\"] # scalar parameter"
+        },
+        {
+            "definition": "Minimum required number of senior accountants",
+            "symbol": "MinSenior",
+            "value": 5,
+            "shape": [],
+            "code": "MinSenior = data[\"MinSenior\"] # scalar parameter"
+        },
+        {
+            "definition": "The ratio of the number of senior accountants to junior accountants",
+            "symbol": "RatioSeniorJunior",
+            "value": 0.33,
+            "shape": [],
+            "code": "RatioSeniorJunior = data[\"RatioSeniorJunior\"] # scalar parameter"
+        },
+        {
+            "definition": "Maximum weekly wage bill",
+            "symbol": "MaxWageBill",
+            "value": 150000,
+            "shape": [],
+            "code": "MaxWageBill = data[\"MaxWageBill\"] # scalar parameter"
+        }
+    ],
+    "constraint": [
+        {
+            "description": "Number of senior accountants is a non-negative integer",
+            "status": "coded",
+            "formulation": "",
+            "related_variables": [
+                "NumSenior"
+            ],
+            "related_parameters": [],
+            "code": "# No additional constraints needed as \"NumSenior\" is already defined as a non-negative integer variable"
+        },
+        {
+            "description": "Number of junior accountants is a non-negative integer",
+            "status": "coded",
+            "formulation": "\\textup{NumJunior} \\geq 0 \\quad \\textup{and} \\quad \\textup{NumJunior} \\in \\mathbb{Z}",
+            "related_variables": [
+                "NumJunior",
+                "NumJunior"
+            ],
+            "related_parameters": [],
+            "code": "# Ensure the number of junior accountants is non-negative\nmodel.addConstr(NumJunior >= 0, name=\"nonnegative_junior\")"
+        },
+        {
+            "description": "Total number of accountants greater than or equal to MinAccountants",
+            "status": "coded",
+            "formulation": "\\textup{NumSenior} + \\textup{NumJunior} \\geq \\textup{MinAccountants}",
+            "related_variables": [
+                "NumSenior",
+                "NumJunior"
+            ],
+            "related_parameters": [
+                "MinAccountants"
+            ],
+            "code": "# Add constraint for minimum required number of accountants\nmodel.addConstr((NumSenior + NumJunior) >= MinAccountants, name=\"min_accountants\")"
+        },
+        {
+            "description": "Number of senior accountants greater than or equal to MinSenior",
+            "status": "coded",
+            "formulation": "\\textup{NumSenior} \\geq \\textup{MinSenior}",
+            "related_variables": [
+                "NumSenior"
+            ],
+            "related_parameters": [
+                "MinSenior"
+            ],
+            "code": "# Add the constraint for minimum number of senior accountants\nmodel.addConstr(NumSenior >= MinSenior, name=\"min_senior_accountant\")"
+        },
+        {
+            "description": "Number of senior accountants greater than or equal to RatioSeniorJunior times the number of junior accountants",
+            "status": "coded",
+            "formulation": "\\textup{NumSenior} \\geq \\textup{RatioSeniorJunior} \\cdot \\textup{NumJunior}",
+            "related_variables": [
+                "NumSenior",
+                "NumJunior"
+            ],
+            "related_parameters": [
+                "RatioSeniorJunior"
+            ],
+            "code": "# Add constraint: Number of senior accountants greater than or equal to RatioSeniorJunior times the number of junior accountants\nmodel.addConstr(NumSenior >= RatioSeniorJunior * NumJunior, name=\"senior_to_junior_ratio\")"
+        },
+        {
+            "description": "Total weekly wage bill for senior and junior accountants less than or equal to MaxWageBill",
+            "status": "coded",
+            "formulation": "\\textup{WageSenior} \\cdot \\textup{NumSenior} + \\textup{WageJunior} \\cdot \\textup{NumJunior} \\leq \\textup{MaxWageBill}",
+            "related_variables": [
+                "NumSenior",
+                "NumJunior"
+            ],
+            "related_parameters": [
+                "WageSenior",
+                "WageJunior",
+                "MaxWageBill"
+            ],
+            "code": "# Add total weekly wage bill constraint\nmodel.addConstr((WageSenior*NumSenior + WageJunior*NumJunior) <= MaxWageBill, name=\"total_wage_bill\")"
+        },
+        {
+            "description": "The number of senior accountants is a non-negative integer",
+            "formulation": "\\textup{NumSenior} \\geq 0  \\ \\textup{and}  \\ \\textup{NumSenior} \\in \\mathbb{Z}",
+            "status": "coded",
+            "related_variables": [
+                "NumSenior",
+                "NumSenior"
+            ],
+            "related_parameters": [],
+            "code": "# No constraint needed as the variable NumSenior has already been defined \n# with the required properties (non-negative and integer) in its declaration."
+        },
+        {
+            "description": "The total number of accountants should be above the minimum required",
+            "formulation": "\\textup{NumSenior} + \\textup{NumJunior} \\geq \\textup{MinAccountants}",
+            "status": "coded",
+            "related_variables": [
+                "NumSenior",
+                "NumJunior"
+            ],
+            "related_parameters": [
+                "MinAccountants"
+            ],
+            "code": "# Add constraint for the minimum required number of accountants\nmodel.addConstr((NumSenior + NumJunior) >= MinAccountants, name=\"min_accountants\")"
+        },
+        {
+            "description": "The number of senior accountants should be above the minimum required",
+            "formulation": "\\textup{NumSenior} \\geq \\textup{MinSenior}",
+            "status": "coded",
+            "related_variables": [
+                "NumSenior"
+            ],
+            "related_parameters": [
+                "MinSenior"
+            ],
+            "code": "# Add the constraint for minimum number of senior accountants\nmodel.addConstr(NumSenior >= MinSenior, name=\"min_senior_accountant\")"
+        },
+        {
+            "description": "The ratio of the number of senior accountants to junior accountants should meet the provided ratio",
+            "formulation": "\\frac{\\textup{NumSenior}}{\\textup{NumJunior}} \\geq \\textup{RatioSeniorJunior}",
+            "status": "coded",
+            "related_variables": [
+                "NumSenior",
+                "NumJunior"
+            ],
+            "related_parameters": [
+                "RatioSeniorJunior"
+            ],
+            "code": "# Add constraint for the ratio of senior to junior accountants\nmodel.addConstr(NumSenior >= RatioSeniorJunior * NumJunior, name=\"senior_junior_ratio\")"
+        },
+        {
+            "description": "The total weekly wage bill should not exceed the maximum weekly wage bill",
+            "formulation": "\\textup{WageSenior} \\times \\textup{NumSenior} + \\textup{WageJunior} \\times \\textup{NumJunior} \\leq \\textup{MaxWageBill}",
+            "status": "coded",
+            "related_variables": [
+                "NumSenior",
+                "NumJunior"
+            ],
+            "related_parameters": [
+                "WageSenior",
+                "WageJunior",
+                "MaxWageBill"
+            ],
+            "code": "# Add wage bill constraint\nmodel.addConstr((WageSenior * NumSenior + WageJunior * NumJunior) <= MaxWageBill, name=\"wage_bill_constraint\")"
+        }
+    ],
+    "variables": [
+        {
+            "definition": "Number of senior accountants",
+            "symbol": "NumSenior",
+            "shape": [],
+            "status": "coded",
+            "code": "NumSenior = model.addVar(vtype=gp.GRB.INTEGER, name=\"NumSenior\")"
+        },
+        {
+            "definition": "Number of junior accountants",
+            "symbol": "NumJunior",
+            "shape": [],
+            "status": "coded",
+            "code": "NumJunior = model.addVar(vtype=gp.GRB.INTEGER, name=\"NumJunior\")"
+        }
+    ],
+    "objective": [
+        {
+            "description": "Minimize the total weekly wage bill for the firm",
+            "status": "coded",
+            "formulation": "\\textup{WageSenior} \\times \\textup{NumSenior} + \\textup{WageJunior} \\times \\textup{NumJunior}",
+            "related_variables": [
+                "NumSenior",
+                "NumJunior"
+            ],
+            "related_parameters": [
+                "WageSenior",
+                "WageJunior"
+            ],
+            "code": "# Set objective\nmodel.setObjective((WageSenior * NumSenior) + (WageJunior * NumJunior), gp.GRB.MINIMIZE)"
+        }
+    ],
+    "solution_status": "runtime_error",
+    "solver_output_status": "runtime_error",
+    "error_message": "Traceback (most recent call last):\n  File \"src/gurobipy/var.pxi\", line 297, in gurobipy.Var.__truediv__\nTypeError: float() argument must be a string or a real number, not 'Var'\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/storage/work/wzk5140/OptLLM/agents/evaluator.py\", line 126, in _run_code\n    exec(last_line, local_env, local_env)\n  File \"<string>\", line 2, in <module>\n  File \"src/gurobipy/var.pxi\", line 299, in gurobipy.Var.__truediv__\ngurobipy.GurobiError: Divisor must be a constant\n",
+    "obj_val": null,
+    "log_folder": "logs/log_20240601154321_nl4opt_prob_2/",
+    "data_json_path": "data/nl4opt/prob_2/data.json",
+    "prep_code": "\nimport json\nimport numpy as np\nimport math\n\nimport gurobipy as gp\n\n # Define model\nmodel = gp.Model('model')\n\nwith open(\"data/nl4opt/prob_2/data.json\", \"r\") as f:\n    data = json.load(f)\n\n"
+}

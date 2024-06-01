@@ -21,7 +21,7 @@ def main():
         help='Dataset name, "nl4opt" or "ComplexOR" or "nlp4lp"',
         default="nl4opt",
     )
-    parser.add_argument("--problem", type=str, help="Problem name", default="prob_1")
+    parser.add_argument("--problem", type=str, help="Problem name", default="prob_2")
     parser.add_argument(
         "--model",
         type=str,

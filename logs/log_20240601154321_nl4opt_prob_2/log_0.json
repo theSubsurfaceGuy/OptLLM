@@ -1,0 +1,212 @@
+{
+    "background": "An accounting firm is trying to optimize its weekly wage bill by employing senior and junior accountants to meet their service contract requirements while obeying certain constraints on minimum numbers and ratios of accountants.",
+    "problem_type": "LP",
+    "parameters": [
+        {
+            "definition": "Weekly salary for a senior accountant",
+            "symbol": "WageSenior",
+            "value": 3000,
+            "shape": [],
+            "code": "WageSenior = data[\"WageSenior\"] # scalar parameter"
+        },
+        {
+            "definition": "Weekly salary for a junior accountant",
+            "symbol": "WageJunior",
+            "value": 1000,
+            "shape": [],
+            "code": "WageJunior = data[\"WageJunior\"] # scalar parameter"
+        },
+        {
+            "definition": "Minimum required number of accountants",
+            "symbol": "MinAccountants",
+            "value": 100,
+            "shape": [],
+            "code": "MinAccountants = data[\"MinAccountants\"] # scalar parameter"
+        },
+        {
+            "definition": "Minimum required number of senior accountants",
+            "symbol": "MinSenior",
+            "value": 5,
+            "shape": [],
+            "code": "MinSenior = data[\"MinSenior\"] # scalar parameter"
+        },
+        {
+            "definition": "The ratio of the number of senior accountants to junior accountants",
+            "symbol": "RatioSeniorJunior",
+            "value": 0.33,
+            "shape": [],
+            "code": "RatioSeniorJunior = data[\"RatioSeniorJunior\"] # scalar parameter"
+        },
+        {
+            "definition": "Maximum weekly wage bill",
+            "symbol": "MaxWageBill",
+            "value": 150000,
+            "shape": [],
+            "code": "MaxWageBill = data[\"MaxWageBill\"] # scalar parameter"
+        }
+    ],
+    "constraint": [
+        {
+            "description": "Number of senior accountants is a non-negative integer",
+            "status": "formulated",
+            "formulation": "",
+            "related_variables": [
+                "NumSenior"
+            ],
+            "related_parameters": []
+        },
+        {
+            "description": "Number of junior accountants is a non-negative integer",
+            "status": "formulated",
+            "formulation": "\\textup{NumJunior} \\geq 0 \\quad \\textup{and} \\quad \\textup{NumJunior} \\in \\mathbb{Z}",
+            "related_variables": [
+                "NumJunior",
+                "NumJunior"
+            ],
+            "related_parameters": []
+        },
+        {
+            "description": "Total number of accountants greater than or equal to MinAccountants",
+            "status": "formulated",
+            "formulation": "\\textup{NumSenior} + \\textup{NumJunior} \\geq \\textup{MinAccountants}",
+            "related_variables": [
+                "NumSenior",
+                "NumJunior"
+            ],
+            "related_parameters": [
+                "MinAccountants"
+            ]
+        },
+        {
+            "description": "Number of senior accountants greater than or equal to MinSenior",
+            "status": "formulated",
+            "formulation": "\\textup{NumSenior} \\geq \\textup{MinSenior}",
+            "related_variables": [
+                "NumSenior"
+            ],
+            "related_parameters": [
+                "MinSenior"
+            ]
+        },
+        {
+            "description": "Number of senior accountants greater than or equal to RatioSeniorJunior times the number of junior accountants",
+            "status": "formulated",
+            "formulation": "\\textup{NumSenior} \\geq \\textup{RatioSeniorJunior} \\cdot \\textup{NumJunior}",
+            "related_variables": [
+                "NumSenior",
+                "NumJunior"
+            ],
+            "related_parameters": [
+                "RatioSeniorJunior"
+            ]
+        },
+        {
+            "description": "Total weekly wage bill for senior and junior accountants less than or equal to MaxWageBill",
+            "status": "formulated",
+            "formulation": "\\textup{WageSenior} \\cdot \\textup{NumSenior} + \\textup{WageJunior} \\cdot \\textup{NumJunior} \\leq \\textup{MaxWageBill}",
+            "related_variables": [
+                "NumSenior",
+                "NumJunior"
+            ],
+            "related_parameters": [
+                "WageSenior",
+                "WageJunior",
+                "MaxWageBill"
+            ]
+        },
+        {
+            "description": "The number of senior accountants is a non-negative integer",
+            "formulation": "\\textup{NumSenior} \\geq 0  \\ \\textup{and}  \\ \\textup{NumSenior} \\in \\mathbb{Z}",
+            "status": "formulated",
+            "related_variables": [
+                "NumSenior",
+                "NumSenior"
+            ],
+            "related_parameters": []
+        },
+        {
+            "description": "The total number of accountants should be above the minimum required",
+            "formulation": "\\textup{NumSenior} + \\textup{NumJunior} \\geq \\textup{MinAccountants}",
+            "status": "formulated",
+            "related_variables": [
+                "NumSenior",
+                "NumJunior"
+            ],
+            "related_parameters": [
+                "MinAccountants"
+            ]
+        },
+        {
+            "description": "The number of senior accountants should be above the minimum required",
+            "formulation": "\\textup{NumSenior} \\geq \\textup{MinSenior}",
+            "status": "formulated",
+            "related_variables": [
+                "NumSenior"
+            ],
+            "related_parameters": [
+                "MinSenior"
+            ]
+        },
+        {
+            "description": "The ratio of the number of senior accountants to junior accountants should meet the provided ratio",
+            "formulation": "\\frac{\\textup{NumSenior}}{\\textup{NumJunior}} \\geq \\textup{RatioSeniorJunior}",
+            "status": "formulated",
+            "related_variables": [
+                "NumSenior",
+                "NumJunior"
+            ],
+            "related_parameters": [
+                "RatioSeniorJunior"
+            ]
+        },
+        {
+            "description": "The total weekly wage bill should not exceed the maximum weekly wage bill",
+            "formulation": "\\textup{WageSenior} \\times \\textup{NumSenior} + \\textup{WageJunior} \\times \\textup{NumJunior} \\leq \\textup{MaxWageBill}",
+            "status": "formulated",
+            "related_variables": [
+                "NumSenior",
+                "NumJunior"
+            ],
+            "related_parameters": [
+                "WageSenior",
+                "WageJunior",
+                "MaxWageBill"
+            ]
+        }
+    ],
+    "variables": [
+        {
+            "definition": "Number of senior accountants",
+            "symbol": "NumSenior",
+            "shape": [],
+            "status": "formulated"
+        },
+        {
+            "definition": "Number of junior accountants",
+            "symbol": "NumJunior",
+            "shape": [],
+            "status": "formulated"
+        }
+    ],
+    "objective": [
+        {
+            "description": "Minimize the total weekly wage bill for the firm",
+            "status": "formulated",
+            "formulation": "\\textup{WageSenior} \\times \\textup{NumSenior} + \\textup{WageJunior} \\times \\textup{NumJunior}",
+            "related_variables": [
+                "NumSenior",
+                "NumJunior"
+            ],
+            "related_parameters": [
+                "WageSenior",
+                "WageJunior"
+            ]
+        }
+    ],
+    "solution_status": null,
+    "solver_output_status": null,
+    "error_message": null,
+    "obj_val": null,
+    "log_folder": "logs/log_20240601154321_nl4opt_prob_2/",
+    "data_json_path": "data/nl4opt/prob_2/data.json"
+}
