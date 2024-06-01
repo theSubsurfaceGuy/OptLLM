@@ -1,0 +1,34 @@
+PROBLEM TYPE: MILP
+
+PROBLEM INFO:
+
+- A team of translators is being assem- bled for the summer Olympics to translate from English into the \{M} other languages.
+- There is a pool of \var{N} translators available.
+- Each translator \var{i} can translate into a certain set of \var{languages} and comes with a specific \var{cost_i}.
+
+INPUT FORMAT: 
+
+{
+"translators": [
+        {"id": i, 
+         "cost": cost_i,
+         "languages": [language_j for j in 1, ..., L_i]
+        },
+        for n in 1, ..., N
+    ],
+    "required_languages": [language_m for m in 1, ..., M]
+}
+
+OBJECTIVE: Select the combination of translators that ensures all required languages can be translated into, at the minimum possible cost.
+
+OUTPUT INFO:
+
+- \var{selected_translators} represents the list of translators chosen.
+- \var{total_cost} shows the total cost for hiring the selected translators.
+
+OUTPUT FORMAT:
+
+{
+    "selected_translators": [translator_ids],
+    "total_cost": total_cost
+}

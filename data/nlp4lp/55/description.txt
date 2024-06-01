@@ -1,0 +1,30 @@
+PROBLEM TYPE: LP
+
+PROBLEM INFO:
+
+- A small electric utility operates \var{P} power plants to supply electricity to \var{C} cities.
+- Each power plant has a capacity of \var{supply_{p}} million kwh.
+- Each city has a peak demand of \var{demand_{c}} million kwh, which must be met at the same time.
+- Power plant \var{p} can send electricity to city \var{c} at a transmission cost of \var{transmission_{p,c}} $/million kwh.
+
+INPUT FORMAT: 
+
+{
+    "supply": [supply_{p} for p in 1, ..., P],
+    "demand": [demand_{c} for c in 1, ..., C],
+    "transmission_costs": [[transmission_{p,c} for c in 1, ..., C] for p in 1, ..., P]
+}
+
+OBJECTIVE: How much electricity should each power plant send to each city to minimize the total transmission cost?
+
+OUTPUT INFO:
+
+- the amount of electricity power plant \var{p} sends to city \var{c} as \var{send_{p,c}} million kwh.
+- \var{total_cost} displays the total transmission cost for the utility.
+
+OUTPUT FORMAT:
+
+{
+    "send": [[send_{p,c} for c in 1, ..., C] for p in 1, ..., P],
+    "total_cost": total_cost
+}

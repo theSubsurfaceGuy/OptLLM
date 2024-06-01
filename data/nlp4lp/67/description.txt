@@ -1,0 +1,39 @@
+PROBLEM TYPE: MILP
+
+PROBLEM INFO:
+
+- A paper company produces large rolls of paper with a width of \var{large_roll_width} inches.
+- These large rolls are cut into smaller rolls of various widths options to meet customer demand.
+- There are \var{M} different types of smaller rolls.
+- The demand for rolls of width \var{inch_j} ​is \var{demand_j}​ units.
+- The company has \var{N} different cutting patterns available for producing the smaller rolls.
+- For pattern \var{i}, the number of rolls of width \var{j} that are produced is \var{pattern_{i,j}}.
+
+INPUT FORMAT: 
+
+{
+    "large_roll_width": large_roll_width,
+    "roll_width_options": [inch_j for j in 1, ..., M],
+    "demands": [demand_j for j in 1, ..., M],
+    "patterns": [[pattern_{i,j} for j in 1, ..., M] for i in 1, ..., N]
+}
+
+OBJECTIVE: Determine the minimum number of large \var{large_roll_width}-inch rolls needed to fulfill all the orders.
+
+OUTPUT INFO:
+
+- The different cutting patterns applied to the large rolls are detailed in \var{patterns}.
+- The total number of large rolls of paper used in this optimization is \var{total_large_rolls_used}.
+
+OUTPUT FORMAT:
+
+{
+    "patterns": [
+        {
+         "pattern": [pattern_j for i in 1, ..., M]
+         "amount": amount_i
+        }
+        for i in 1, ..., N
+    ],
+    "total_large_rolls_used": total_large_rolls
+}

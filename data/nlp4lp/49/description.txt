@@ -1,0 +1,40 @@
+PROBLEM TYPE: LP
+
+PROBLEM INFO:
+
+- A company produces \var{S} different types of steel using \var{A} different alloys.
+- The company has \var{available_{a}} tons of alloy \var{a} available.
+- Steel \var{s} requires a certain percentage of carbon \var{carbon_min_{s}}.
+- Steel \var{s} has a maximum allowable percentage for nickel \var{nickel_max_{s}}.
+- Alloy \var{a} contains \var{carbon_{a}} percent of carbon and \var{nickel_{a}} percent of nickel.
+- Alloy \var{a} has a purchase price of \var{alloy_price_{a}} per ton.
+- Steel \var{s} has a selling price of \var{steel_price_{s}} per ton.
+- All steel must have at most 40% of alloy 1.
+
+INPUT FORMAT: 
+
+{
+"available": [available_{a} for a in 1, ..., A],
+"carbon": [carbon_{a} for a in 1, ..., A],
+"nickel": [nickel_{a} for a in 1, ..., A],
+"alloy_prices": [alloy_price_{a} for a in 1, ..., A],
+"steel_prices": [steel_price_{s} for s in 1, ..., S],
+"carbon_min": [carbon_min_{s} for s in 1, ..., S],
+"nickel_max": [nickel_min_{s} for s in 1, ..., S]
+}
+
+OBJECTIVE: How much of each alloy should the company use in each type of steel, and how much of each steel type should be produced to maximize profit?
+
+OUTPUT INFO:
+
+- The amount of each alloy used in each type of steel \var{alloy_amount_{a,s}}.
+- \var{total_steel_{s}} shows the total amount of steel type \var{s} produced.
+- \var{total_profit} represents the total profit.
+
+OUTPUT FORMAT:
+
+{
+    "alloy_use": [[alloy_amount_{a,s} for a in 1, ..., A] for s in 1, ..., S],
+    "total_steel": [total_steel_{s} for s in 1, ..., S],
+    "total_profit": total_profit
+}

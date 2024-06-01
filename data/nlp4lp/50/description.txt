@@ -1,0 +1,29 @@
+PROBLEM TYPE: LP or MILP
+
+PROBLEM INFO:
+
+- The town has \var{S} different shifts for the police officers during the day.
+- During each shift \var{s}, the town requires \var{officers_needed_{s}} police officers on duty.
+- Each police officer works for two consecutive shifts.
+- The cost for the town when starting a shift at \var{s} is \var{shift_cost_{s}}.
+
+INPUT FORMAT: 
+
+{
+    "officers_needed": [officers_needed_{s} for s in 1, ..., S],
+    "shift_costs": [shift_cost_{s} for s in 1, ..., S]
+}
+
+OBJECTIVE: How many officers should the town assign to each shift in order to minimize the total cost?
+
+OUTPUT INFO:
+
+- The number of officers assigned to each shift \var{officers_assigned_{s}}.
+- \var{total_cost} indicates the total cost for the town.
+
+OUTPUT FORMAT:
+
+{
+    "officers_assigned": [officers_assigned_{s} for s in 1, ..., S],
+    "total_cost": total_cost
+}

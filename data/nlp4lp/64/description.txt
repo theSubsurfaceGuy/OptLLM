@@ -1,0 +1,31 @@
+PROBLEM TYPE: MILP
+
+PROBLEM INFO:
+
+- A company has \var{I} projects to be done by consultants.
+- They have a choice of \var{J} consultants.
+- Each consultant may be assigned up to \var{K} projects. 
+- Hiring consultant \var{j} incurs a fixed cost of \var{f_j}.
+- Assigning project \var{i} to consultant \var{j} incurs an additional cost of \var{c_{i,j}}.
+
+INPUT FORMAT: 
+
+{
+    "fixed_costs": [f_j for j in 1, ..., J],
+    "additional_costs": [[c_{i,j} for j in 1, ..., J] for i in 1, ..., I],
+    "max_projects_per_consultant": K
+}
+
+OBJECTIVE: Determine the assignment of consultants to projects that minimizes the total cost.
+
+OUTPUT INFO:
+
+- The projects assigned to each consultant \var{assignment_{j,i}}.
+- \var{total_cost} reflects the total cost of hiring consultants and assigning them to projects.
+
+OUTPUT FORMAT:
+
+{
+    "assignments": [[assignment_{j,i} for i in 1, ..., I] for j in 1, ..., J],
+    "total_cost": total_cost
+}

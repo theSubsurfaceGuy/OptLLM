@@ -1,0 +1,32 @@
+PROBLEM TYPE: LP
+
+PROBLEM INFO:
+
+- A delivery person starts at the intersection of \var{1}th Avenue and \var{1}th Street and needs to reach the intersection of \var{W}th Avenue and \var{N}th Street.
+- The path between these two points forms a \var{N-1} × \var{W-1} grid.
+- Each block on the grid has a unique walking time due to varying pedestrian traffic during rush hour.
+- The delivery person can only walk north or west.
+- The journey can be broken down into \var{m} stages, where at each stage the delivery person decides to walk either north or west.
+- When at the intersection of \var{w}th Avenue and \var{n}th Street, the time to move to the intersection of \var{w+1}th Avenue and \var{n}th Stree is \var{west_time_{n,w}}.
+- When at the intersection of \var{w}th Avenue and \var{n}th Street, the time to move to the intersection of \var{w}th Avenue and \var{n+1}th Stree is \var{north_time_{n,w}}.
+
+INPUT FORMAT:
+
+{
+    "west_time": [[west_{n,w} for w in 1, ..., W-1] for n in 1, ..., N],
+    "north_time": [[north_{n,w} for w in 1, ..., W] for n in 1, ..., N-1],
+}
+
+OBJECTIVE: Determine the optimal path the delivery person should take to ensure the package is delivered in the least amount of time.
+
+OUTPUT INFO:
+
+- \var{total_time} represents total time taken to travel this path
+- \var{paths} represents the flow going through the corresponding path
+
+OUTPUT FORMAT:
+
+{
+    "paths": [(street_{n}, avenue_{w}) for id in 1, ..., m]
+    "total_time": total_travel_time
+}

@@ -1,0 +1,62 @@
+PROBLEM TYPE: MILP
+
+PROBLEM INFO:
+
+- The network faces an intrusion that requires immediate intervention.
+- Interventions include isolating nodes or scanning nodes affected by the intruder.
+- Each cluster of nodes must be treated with one intervention type consistently.
+- Interventions can be processed either centrally or through distributed nodes.
+- The processing times for each type of intervention are different across \var{N} clusters.
+- The opportunity cost for processing is $\var{central_cost}/h for central and $\var{distributed_cost}/h for distributed processing.
+- There is a maximum allotment of \var{max_central} hours for central processing and \var{max_distributed} hours for distributed processing to address the intrusion.
+
+INPUT FORMAT: 
+
+{
+    "processing_times": {
+        "central": {
+            "isolate": [isolate_central_{i} for i in 1, ..., N],
+            "scan": [scan_central_{i} for i in 1, ..., N]
+        },
+        "distributed": {
+            "isolate": [isolate_distributed_{i} for i in 1, ..., N],
+            "scan": [scan_distributed_{i} for i in 1, ..., N]
+        }
+    },
+    "costs": {
+        "central": central_cost,
+        "distributed": distributed_cost
+    },
+    "max_hours": {
+        "central_max_hours": max_central,
+        "distributed_max_hours": max_distributed
+    }
+}
+
+OBJECTIVE: Determine the most cost-effective combination of interventions to halt the intruder's progress within the network.
+
+OUTPUT INFO:
+
+- The output details the intervention type ('isolate' or 'scan') and processing method ('central' or 'distributed') for each cluster.
+- The \var{total_cost} is the sum of costs for all interventions across the clusters.
+
+OUTPUT FORMAT:
+
+{
+    "interventions": {
+        [
+            {
+            "cluster_id": cluster_id
+            "type": "isolate" or "scan",
+            "method": "central" or "distributed",
+            "amount": amount_i
+            },
+            for i in 1, ..., N
+        ]
+    },
+    "total_cost": total_cost
+}
+
+
+
+

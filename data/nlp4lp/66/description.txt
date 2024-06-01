@@ -1,0 +1,34 @@
+PROBLEM TYPE: MILP
+
+PROBLEM INFO:
+
+- A traveler based in \var{start_city} needs to visit \var{N} towns for business.
+- The distance \var{distance_{i,j}} between city \var{i} and \var{j} is provided in miles and are symmetric, meaning the distance from city \var{i} to city \var{j} is the same as from city \var{j} to city \var{i}.
+- The traveler must return to \var{start_city} after visiting all towns.
+
+INPUT FORMAT: 
+
+{
+    "distances": {
+        city_i: {
+            city_j: distance_{i, j},
+            for j in 1, ..., N-1
+        },
+        for i in 1, ..., N
+    },
+    "start_city": start_city
+}
+
+OBJECTIVE: Determine the shortest route that the traveler can take to visit all \var{N} towns and return to \var{start_city}.
+
+OUTPUT INFO:
+
+- The sequence of cities visited after \var{start_city} is \var{visit_order}.
+- \var{total_distance} traveled on this optimal journey.
+
+OUTPUT FORMAT:
+
+{
+    "visit_order": [city_n for n in 1, ..., N+1],
+    "total_distance": total_distance
+}

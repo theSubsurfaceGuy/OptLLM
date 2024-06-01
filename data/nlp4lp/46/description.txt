@@ -1,0 +1,34 @@
+PROBLEM TYPE: LP
+
+PROBLEM INFO:
+
+- Wild Sports produces \var{M} different products using \var{N} different raw materials.
+- The company has \var{available_{i}} of raw material \var{i} available.
+- Product \var{j} requires \var{req_{i,j}} units of material \var{i} per unit produced.
+- Product \var{j} has a selling price of \var{price_j} per unit.
+- Product \var{j} has a production cost of \var{cost_j} per unit produced.
+- Product \var{j} has a forecasted maximum demand of \var{demand_j} for the month.
+
+INPUT FORMAT: 
+
+{
+    "available": [available_{i} for i in 1, ..., N],
+    "requirements": [[req_{i,j} for i in 1, ..., N] for j in 1, ..., M],
+    "prices": [price_{j} for j in 1, ..., M],
+    "costs": [cost_{j} for j in 1, ..., M],
+    "demands": [demand_{j} for j in 1, ..., M]
+}
+
+OBJECTIVE: How many of each product should the sports produce in order to maximize its profit for the month?
+
+OUTPUT INFO:
+
+- the amount of each product produced \var{amount_{j}}.
+- \var{total_profit} shows the total profit of the company for the month.
+
+OUTPUT FORMAT:
+
+{
+    "amount": [amount_{j} for j in 1, ..., M],
+    "total_profit": total_profit
+}
