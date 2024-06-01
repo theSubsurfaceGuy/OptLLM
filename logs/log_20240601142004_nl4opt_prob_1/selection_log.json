@@ -1,0 +1,17 @@
+[
+    {
+        "agent_name": "Formulator",
+        "task": "Defining constraints, variables, and objective functions",
+        "result": "Formulation Done! Now we can write the code."
+    },
+    {
+        "agent_name": "Programmer",
+        "task": "Fix the code due to a runtime error",
+        "result": "Coding Done! Now we can evaluate the code!"
+    },
+    {
+        "agent_name": "Evaluator",
+        "task": "Evaluate the code",
+        "result": "There was an error in running the code! Traceback (most recent call last):\n  File \"/storage/work/akb6819/OptLLM/agents/evaluator.py\", line 120, in _run_code\n    exec(last_line, local_env, local_env)\n  File \"<string>\", line 1, in <module>\nNameError: name 'grb' is not defined\n"
+    }
+]

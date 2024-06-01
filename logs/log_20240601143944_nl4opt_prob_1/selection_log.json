@@ -1,0 +1,12 @@
+[
+    {
+        "agent_name": "Formulator",
+        "task": "Defining constraints, variables, and objective functions",
+        "result": "Formulation Done! Now we can write the code."
+    },
+    {
+        "agent_name": "Programmer",
+        "task": "Fix the code due to a runtime error",
+        "result": "Coding Done! Now we can evaluate the code!"
+    }
+]

@@ -25,7 +25,7 @@ def main():
     parser.add_argument(
         "--model",
         type=str,
-        default="gpt-3.5-turbo-0125",
+        default="gpt-4-0613",
         help="Base large language model",
     )
     parser.add_argument("--log_dir", type=str, help="Log directory")
@@ -40,7 +40,7 @@ def main():
 
     if not args.model in [
         "gpt-4-0613",
-        "gpt-3.5-turbo-0125",
+        #"gpt-3.5-turbo-0125",
         "mistralai/Mixtral-8x7B-Instruct-v0.1",
         "mistral-medium",
     ]:

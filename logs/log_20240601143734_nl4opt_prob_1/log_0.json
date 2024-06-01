@@ -1,0 +1,175 @@
+{
+    "background": "An office supply company makes two types of printers: color printers and black and white printers.",
+    "problem_type": "LP",
+    "parameters": [
+        {
+            "definition": "Maximum number of color printers that can be produced per day",
+            "symbol": "MaxColor",
+            "value": 20,
+            "shape": [],
+            "code": "MaxColor = data[\"MaxColor\"] # scalar parameter"
+        },
+        {
+            "definition": "Maximum number of black and white printers that can be produced per day",
+            "symbol": "MaxBW",
+            "value": 30,
+            "shape": [],
+            "code": "MaxBW = data[\"MaxBW\"] # scalar parameter"
+        },
+        {
+            "definition": "Maximum number of printers that the paper tray installing machine can equip per day",
+            "symbol": "MaxTotal",
+            "value": 35,
+            "shape": [],
+            "code": "MaxTotal = data[\"MaxTotal\"] # scalar parameter"
+        },
+        {
+            "definition": "Profit generated per color printer",
+            "symbol": "ProfitColor",
+            "value": 200,
+            "shape": [],
+            "code": "ProfitColor = data[\"ProfitColor\"] # scalar parameter"
+        },
+        {
+            "definition": "Profit generated per black and white printer",
+            "symbol": "ProfitBW",
+            "value": 70,
+            "shape": [],
+            "code": "ProfitBW = data[\"ProfitBW\"] # scalar parameter"
+        }
+    ],
+    "constraint": [
+        {
+            "description": "Number of color printers is an integer",
+            "status": "formulated",
+            "formulation": "NumberColorPrinters \\quad \\textup{should be an integer}",
+            "related_variables": [
+                "BinaryColorPrinter"
+            ],
+            "related_parameters": []
+        },
+        {
+            "description": "Number of black and white printers is an integer",
+            "status": "formulated",
+            "formulation": "NumBWPrinters \\geq 0, \\quad NumBWPrinters \\in \\mathbb{Z}",
+            "related_variables": [
+                "NumBWPrinters"
+            ],
+            "related_parameters": []
+        },
+        {
+            "description": "Number of color printers is non-negative",
+            "status": "formulated",
+            "formulation": "\\textup{NumColorPrinters} \\geq 0",
+            "related_variables": [
+                "NumColorPrinters"
+            ],
+            "related_parameters": []
+        },
+        {
+            "description": "Number of black and white printers is non-negative",
+            "status": "formulated",
+            "formulation": "\\textup{NumBWPrinters} \\geq 0",
+            "related_variables": [
+                "NumBWPrinters"
+            ],
+            "related_parameters": []
+        },
+        {
+            "description": "The company can make at most MaxColor color printers per day",
+            "status": "formulated",
+            "formulation": "\\textup{NumColorPrinters} \\leq \\textup{MaxColor}",
+            "related_variables": [
+                "NumColorPrinters"
+            ],
+            "related_parameters": [
+                "MaxColor"
+            ]
+        },
+        {
+            "description": "The company can make at most MaxBW black and white printers per day",
+            "status": "formulated",
+            "formulation": "\\textup{NumBWPrinters} \\leq \\textup{MaxBW}",
+            "related_variables": [
+                "NumBWPrinters",
+                "TotalBWPrinters"
+            ],
+            "related_parameters": [
+                "MaxBW"
+            ]
+        },
+        {
+            "description": "The company can make at most a total of MaxTotal printers per day",
+            "status": "formulated",
+            "formulation": "\\textup{TotalPrinters} \\leq MaxTotal",
+            "related_variables": [
+                "TotalPrinters"
+            ],
+            "related_parameters": []
+        },
+        {
+            "description": "Ensuring the number of color printers is an integer using a binary variable",
+            "formulation": "NumberColorPrinters = \\textup{MaxColor} \\cdot \\textup{BinaryColorPrinter}",
+            "status": "formulated",
+            "related_variables": [
+                "BinaryColorPrinter"
+            ],
+            "related_parameters": [
+                "MaxColor"
+            ]
+        }
+    ],
+    "variables": [
+        {
+            "definition": "Binary variable representing the production of color printers",
+            "symbol": "BinaryColorPrinter",
+            "shape": [],
+            "status": "formulated"
+        },
+        {
+            "definition": "Number of black and white printers produced",
+            "symbol": "NumBWPrinters",
+            "shape": [],
+            "status": "formulated"
+        },
+        {
+            "definition": "Number of color printers produced",
+            "symbol": "NumColorPrinters",
+            "shape": [],
+            "status": "formulated"
+        },
+        {
+            "definition": "Total number of black and white printers produced per day",
+            "symbol": "TotalBWPrinters",
+            "shape": [],
+            "status": "formulated"
+        },
+        {
+            "definition": "Total number of printers produced per day",
+            "symbol": "TotalPrinters",
+            "shape": [],
+            "status": "formulated"
+        }
+    ],
+    "objective": [
+        {
+            "description": "Maximize the company's profit, which is ProfitColor per color printer plus ProfitBW per black and white printer.",
+            "status": "formulated",
+            "formulation": "Maximize \\quad \\textup{ProfitColor} \\cdot \\textup{NumColorPrinters} + \\textup{ProfitBW} \\cdot \\textup{NumBWPrinters}",
+            "related_variables": [
+                "NumColorPrinters",
+                "NumBWPrinters"
+            ],
+            "related_parameters": [
+                "ProfitColor",
+                "ProfitBW"
+            ]
+        }
+    ],
+    "solution_status": null,
+    "solver_output_status": null,
+    "error_message": null,
+    "obj_val": null,
+    "log_folder": "logs/log_20240601143734_nl4opt_prob_1/",
+    "data_json_path": "data/nl4opt/prob_1/data.json"
+}
