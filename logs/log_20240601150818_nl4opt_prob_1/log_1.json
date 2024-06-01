@@ -1,0 +1,195 @@
+{
+    "background": "An office supply company makes two types of printers: color printers and black and white printers.",
+    "problem_type": "LP",
+    "parameters": [
+        {
+            "definition": "Maximum number of color printers that can be produced per day",
+            "symbol": "MaxColor",
+            "value": 20,
+            "shape": [],
+            "code": "MaxColor = data[\"MaxColor\"] # scalar parameter"
+        },
+        {
+            "definition": "Maximum number of black and white printers that can be produced per day",
+            "symbol": "MaxBW",
+            "value": 30,
+            "shape": [],
+            "code": "MaxBW = data[\"MaxBW\"] # scalar parameter"
+        },
+        {
+            "definition": "Maximum number of printers that the paper tray installing machine can equip per day",
+            "symbol": "MaxTotal",
+            "value": 35,
+            "shape": [],
+            "code": "MaxTotal = data[\"MaxTotal\"] # scalar parameter"
+        },
+        {
+            "definition": "Profit generated per color printer",
+            "symbol": "ProfitColor",
+            "value": 200,
+            "shape": [],
+            "code": "ProfitColor = data[\"ProfitColor\"] # scalar parameter"
+        },
+        {
+            "definition": "Profit generated per black and white printer",
+            "symbol": "ProfitBW",
+            "value": 70,
+            "shape": [],
+            "code": "ProfitBW = data[\"ProfitBW\"] # scalar parameter"
+        }
+    ],
+    "constraint": [
+        {
+            "description": "Number of color printers is an integer",
+            "status": "coded",
+            "formulation": "\\textup{ColorPrinters} \\in \\mathbb{Z}",
+            "related_variables": [
+                "ColorPrinters"
+            ],
+            "related_parameters": [],
+            "code": "# Set the variable ColorPrinters to be integer\nColorPrinters.vType = gp.GRB.INTEGER"
+        },
+        {
+            "description": "Number of black and white printers is an integer",
+            "status": "coded",
+            "formulation": "\\textup{BWPrinters} \\in \\mathbb{Z}",
+            "related_variables": [
+                "BWPrinters"
+            ],
+            "related_parameters": [],
+            "code": "# Adjust the variable BWPrinters for integer constraint\nBWPrinters.vType = gp.GRB.INTEGER"
+        },
+        {
+            "description": "Number of color printers is non-negative",
+            "status": "coded",
+            "formulation": "\\textup{ColorPrinters} \\geq 0",
+            "related_variables": [
+                "ColorPrinters"
+            ],
+            "related_parameters": [],
+            "code": "# Ensure the number of color printers is non-negative\nmodel.addConstr(ColorPrinters >= 0, name=\"color_printers_nonnegative\")"
+        },
+        {
+            "description": "Number of black and white printers is non-negative",
+            "status": "coded",
+            "formulation": "\\textup{BWPrinters} \\geq 0",
+            "related_variables": [
+                "BWPrinters"
+            ],
+            "related_parameters": [],
+            "code": "# Add the constraint for the number of black and white printers to be non-negative\nmodel.addConstr(BWPrinters >= 0, name=\"non_negative_BWPrinters\")"
+        },
+        {
+            "description": "The company can make at most MaxColor color printers per day",
+            "status": "coded",
+            "formulation": "\\textup{ColorPrinters} \\leq \\textup{MaxColor}",
+            "related_variables": [
+                "ColorPrinters"
+            ],
+            "related_parameters": [
+                "MaxColor"
+            ],
+            "code": "# Add color printer production limit constraint\nmodel.addConstr(ColorPrinters <= MaxColor, name=\"color_printer_production_limit\")"
+        },
+        {
+            "description": "The company can make at most MaxBW black and white printers per day",
+            "status": "coded",
+            "formulation": "\\textup{BWPrinters} \\leq \\textup{MaxBW}",
+            "related_variables": [
+                "BWPrinters"
+            ],
+            "related_parameters": [
+                "MaxBW"
+            ],
+            "code": "# Add production limit constraint for black and white printers\nmodel.addConstr(BWPrinters <= MaxBW, name=\"BW_printers_limit\")"
+        },
+        {
+            "description": "The company can make at most a total of MaxTotal printers per day",
+            "status": "coded",
+            "formulation": "\\textup{ColorPrinters} + \\textup{BWPrinters} \\leq \\textup{MaxTotal}",
+            "related_variables": [
+                "ColorPrinters",
+                "BWPrinters"
+            ],
+            "related_parameters": [
+                "MaxTotal"
+            ],
+            "code": "# Add maximum total printers production constraint\nmodel.addConstr(ColorPrinters + BWPrinters <= MaxTotal, name=\"total_production\")"
+        },
+        {
+            "description": "The company cannot produce more color printers than its maximum daily capability",
+            "formulation": "\\textup{ColorPrinters} \\leq \\textup{MaxColor}",
+            "status": "coded",
+            "related_variables": [
+                "ColorPrinters"
+            ],
+            "related_parameters": [
+                "MaxColor"
+            ],
+            "code": "# Add color printer production limit constraint\nmodel.addConstr(ColorPrinters <= MaxColor, name=\"production_capacity\")"
+        },
+        {
+            "description": "The company cannot produce more black and white printers than its maximum daily capability",
+            "formulation": "\\textup{BWPrinters} \\leq \\textup{MaxBW}",
+            "status": "coded",
+            "related_variables": [
+                "BWPrinters"
+            ],
+            "related_parameters": [
+                "MaxBW"
+            ],
+            "code": "# Add production capacity constraint for black and white printers\nmodel.addConstr(BWPrinters <= MaxBW, name=\"BW_printers_capacity\")"
+        },
+        {
+            "description": "The company cannot equip more printers than the capacity of the paper tray installing machine",
+            "formulation": "\\textup{ColorPrinters} + \\textup{BWPrinters} \\leq \\textup{MaxTotal}",
+            "status": "coded",
+            "related_variables": [
+                "ColorPrinters",
+                "BWPrinters"
+            ],
+            "related_parameters": [
+                "MaxTotal"
+            ],
+            "code": "# Add printer capacity constraint\nmodel.addConstr(ColorPrinters + BWPrinters <= MaxTotal, name=\"printer_capacity\")"
+        }
+    ],
+    "variables": [
+        {
+            "definition": "Number of color printers produced per day",
+            "symbol": "ColorPrinters",
+            "shape": [],
+            "status": "coded",
+            "code": "ColorPrinters = model.addVar(vtype=gp.GRB.CONTINUOUS, name=\"ColorPrinters\")"
+        },
+        {
+            "definition": "Number of black and white printers produced per day",
+            "symbol": "BWPrinters",
+            "shape": [],
+            "status": "coded",
+            "code": "BWPrinters = model.addVar(vtype=gp.GRB.CONTINUOUS, name=\"BWPrinters\")"
+        }
+    ],
+    "objective": [
+        {
+            "description": "Maximize the company's profit, which is ProfitColor per color printer plus ProfitBW per black and white printer.",
+            "status": "coded",
+            "formulation": "\\textup{ProfitColor} \\times \\textup{ColorPrinters} + \\textup{ProfitBW} \\times \\textup{BWPrinters}",
+            "related_variables": [
+                "ColorPrinters",
+                "BWPrinters"
+            ],
+            "related_parameters": [
+                "ProfitColor",
+                "ProfitBW"
+            ],
+            "code": "# Set objective\nmodel.setObjective(ProfitColor * ColorPrinters + ProfitBW * BWPrinters, gp.GRB.MAXIMIZE)"
+        }
+    ],
+    "solution_status": null,
+    "solver_output_status": null,
+    "error_message": null,
+    "obj_val": null,
+    "log_folder": "logs/log_20240601150818_nl4opt_prob_1/",
+    "data_json_path": "data/nl4opt/prob_1/data.json"
+}

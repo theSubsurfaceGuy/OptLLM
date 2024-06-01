@@ -1,0 +1,27 @@
+[
+    {
+        "agent_name": "Formulator",
+        "task": "Define the constraints, variables, and the objective function for the given problem",
+        "result": "Formulation Done! Now we can write the code."
+    },
+    {
+        "agent_name": "Programmer",
+        "task": "Write the code for the problem from the mathematical formulation",
+        "result": "Coding Done! Now we can evaluate the code!"
+    },
+    {
+        "agent_name": "Evaluator",
+        "task": "Evaluate the performance and correctness of the code",
+        "result": "There was an error in running the code! Traceback (most recent call last):\n  File \"/storage/work/wzk5140/OptLLM/agents/evaluator.py\", line 126, in _run_code\n    exec(last_line, local_env, local_env)\n  File \"<string>\", line 4, in <module>\n  File \"src/gurobipy/tempconstr.pxi\", line 57, in gurobipy.TempConstr.__bool__\ngurobipy.GurobiError: Constraint has no bool value (are you trying \"lb <= expr <= ub\"?)\n"
+    },
+    {
+        "agent_name": "Programmer",
+        "task": "Fix the runtime error in the code",
+        "result": "The code is fixed! Try evaluating it again."
+    },
+    {
+        "agent_name": "Evaluator",
+        "task": "Evaluate the performance and correctness of the code",
+        "result": "Evaluation Done! The problem is solved."
+    }
+]
