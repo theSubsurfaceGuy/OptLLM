@@ -25,7 +25,7 @@ def main():
     parser.add_argument(
         "--model",
         type=str,
-        default="gpt-4-1106-preview",
+        default="gpt-3.5-turbo-0125",
         help="Base large language model",
     )
     parser.add_argument("--log_dir", type=str, help="Log directory")
@@ -39,13 +39,13 @@ def main():
     args = parser.parse_args()
 
     if not args.model in [
-        "gpt-4-1106-preview",
-        "gpt-3.5-turbo",
+        "gpt-4-0613",
+        "gpt-3.5-turbo-0125",
         "mistralai/Mixtral-8x7B-Instruct-v0.1",
         "mistral-medium",
     ]:
         print(
-            "Invalid model name! Please choose from 'gpt-4-1106-preview', 'gpt-3.5-turbo', 'mistralai/Mixtral-8x7B-Instruct-v0.1', 'mistral-medium'"
+            "Invalid model name! Please choose from 'gpt-4-0613', 'gpt-3.5-turbo-0125', 'mistralai/Mixtral-8x7B-Instruct-v0.1', 'mistral-medium'"
         )
         exit(0)
 
